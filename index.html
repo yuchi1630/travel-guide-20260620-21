@@ -26,132 +26,7 @@
     #bg1 { opacity: 1; }
     #bg2 { opacity: 0; }
 
-    /* パスワード画面（旅行っぽいデザイン） */
-    #lock-screen {
-        position: fixed;
-        inset: 0;
-        background: rgba(255, 255, 255, 0.85);
-        backdrop-filter: blur(6px);
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        z-index: 9999;
-    }
-
-.lock-box {
-    background: #ffffff;
-    padding: 30px 25px;
-    border-radius: 18px;
-    box-shadow: 0 6px 25px rgba(0,0,0,0.15);
-    text-align: center;
-    width: 85%;
-    max-width: 340px;
-    animation: pop 0.4s ease;
-    border: 2px dashed #ffb6c1;
-}
-
-
-    @keyframes pop {
-        0% { transform: scale(0.8); opacity: 0; }
-        100% { transform: scale(1); opacity: 1; }
-    }
-
-    .plane-icon {
-        font-size: 40px;
-        margin-bottom: 10px;
-        color: #ff6f91;
-    }
-
-    #lock-screen h2 {
-        margin-bottom: 10px;
-        color: #333;
-        font-size: 1.4rem;
-    }
-
-    #lock-screen p {
-        margin-bottom: 15px;
-        color: #666;
-        font-size: 0.9rem;
-    }
-
-    #lock-screen input {
-        width: 100%;
-        padding: 12px;
-        font-size: 18px;
-        border-radius: 10px;
-        border: 1px solid #ccc;
-        margin-bottom: 15px;
-        text-align: center;
-        outline: none;
-    }
-
-    #lock-screen button {
-        width: 100%;
-        padding: 12px;
-        font-size: 16px;
-        border-radius: 10px;
-        border: none;
-        background: #ff8fab;
-        color: #fff;
-        cursor: pointer;
-        transition: 0.2s;
-    }
-
-    #lock-screen button:hover {
-        background: #ff6f91;
-    }
-
-    /* セクション */
-    section {
-        min-height: 100vh;
-        padding: 60px 20px;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        backdrop-filter: brightness(0.75);
-    }
-
-    h2 {
-        margin-bottom: 20px;
-        font-size: 2rem;
-        text-shadow: 0 2px 6px rgba(0,0,0,0.4);
-    }
-
-    .content-box {
-        background: rgba(0,0,0,0.35);
-        padding: 20px;
-        border-radius: 12px;
-        backdrop-filter: blur(4px);
-    }
-</style>
-</head>
-
-<body>
-
-<!-- 背景レイヤー -->
-<div id="bg1" class="bg-layer"></div>
-<div id="bg2" class="bg-layer"></div>
-
-<!-- パスワードロック（大人の搭乗券風デザイン） -->
-<div id="lock-screen">
-    <div class="lock-card">
-        <div class="card-header">BOARDING PASS</div>
-
-        <div class="card-body">
-            <div class="label">BOARDING CODE</div>
-            <input type="text" id="pass" placeholder="さんこいち">
-
-            <button onclick="unlock()">CHECK IN</button>
-        </div>
-
-        <div class="card-footer">
-            TOKYO → SHINJUKU  
-            <span class="date">2026.06.20-21</span>
-        </div>
-    </div>
-</div>
-
-<style>
+    /* パスワード画面（大人の搭乗券風デザイン） */
     #lock-screen {
         position: fixed;
         inset: 0;
@@ -207,6 +82,7 @@
         text-align: center;
         outline: none;
         background: rgba(255,255,255,0.9);
+        box-sizing: border-box;
     }
 
     #lock-screen button {
@@ -241,7 +117,55 @@
         margin-top: 4px;
         color: #777;
     }
+
+    /* セクション */
+    section {
+        min-height: 100vh;
+        padding: 60px 20px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        backdrop-filter: brightness(0.75);
+    }
+
+    h2 {
+        margin-bottom: 20px;
+        font-size: 2rem;
+        text-shadow: 0 2px 6px rgba(0,0,0,0.4);
+    }
+
+    .content-box {
+        background: rgba(0,0,0,0.35);
+        padding: 20px;
+        border-radius: 12px;
+        backdrop-filter: blur(4px);
+    }
 </style>
+</head>
+
+<body>
+
+<!-- 背景レイヤー -->
+<div id="bg1" class="bg-layer"></div>
+<div id="bg2" class="bg-layer"></div>
+
+<!-- パスワードロック（大人の搭乗券風デザイン） -->
+<div id="lock-screen">
+    <div class="lock-card">
+        <div class="card-header">BOARDING PASS</div>
+
+        <div class="card-body">
+            <div class="label">BOARDING CODE</div>
+            <input type="text" id="pass" placeholder="さんこいち">
+            <button onclick="unlock()">CHECK IN</button>
+        </div>
+
+        <div class="card-footer">
+            TOKYO → SHINJUKU  
+            <span class="date">2026.06.20-21</span>
+        </div>
+    </div>
+</div>
 
 <script>
 function unlock() {
@@ -253,7 +177,6 @@ function unlock() {
     }
 }
 </script>
-
 
 <!-- 本編 -->
 
