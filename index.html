@@ -260,6 +260,23 @@
         border-radius: 12px;
         backdrop-filter: blur(4px);
     }
+
+    /* ▼▼▼ 概要を理念ページ風に ▼▼▼ */
+    #sec-overview {
+        position: relative;
+        text-align: center;
+        padding-top: 25vh;
+        padding-bottom: 25vh;
+        transition: opacity 0.8s ease-out;
+    }
+
+    #sec-overview .content-box {
+        background: none;
+        backdrop-filter: none;
+        font-size: 1.4rem;
+        line-height: 2.4rem;
+        color: #fff;
+    }
 </style>
 </head>
 
@@ -358,17 +375,32 @@ document.querySelectorAll("#menu-panel a").forEach(link => {
         menuBtn.classList.remove("active");
     });
 });
+
+/* ▼ 概要フェードアウト ▼ */
+const overview = document.getElementById("sec-overview");
+
+window.addEventListener("scroll", () => {
+    const rect = overview.getBoundingClientRect();
+    const fadeStart = window.innerHeight * 0.2;
+    const fadeEnd = window.innerHeight * 0.6;
+
+    if (rect.top < fadeEnd) {
+        const opacity = Math.max(0, (rect.top - fadeStart) / (fadeEnd - fadeStart));
+        overview.style.opacity = opacity;
+    } else {
+        overview.style.opacity = 1;
+    }
+});
 </script>
 
 <!-- ▼▼▼ 本編 ▼▼▼ -->
 
 <section id="sec-overview">
-    <h2>目的</h2>
     <div class="content-box">
         <p><strong>目的：</strong><br>
         梅の香りに雨と土の匂い、花々の深い色素を<br>
         ひと時の旅のレシピに
-
+        </p>
     </div>
 </section>
 
