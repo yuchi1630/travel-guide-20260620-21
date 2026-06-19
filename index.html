@@ -86,7 +86,7 @@
         inset: 0;
         background: rgba(255, 255, 255, 0.55);
         backdrop-filter: blur(10px);
-        display: flex; /* ← 最初から表示 */
+        display: flex;
         justify-content: center;
         align-items: center;
         z-index: 9999;
@@ -196,7 +196,7 @@
         backdrop-filter: blur(4px);
     }
 
-    /* ▼▼▼ 概要を理念ページ風に ▼▼▼ */
+    /* ▼▼▼ 概要 ▼▼▼ */
     #sec-overview {
         position: relative;
         text-align: center;
@@ -212,129 +212,80 @@
         line-height: 2.4rem;
         color: #fff;
     }
-    /* ▼▼▼ 日程レイアウト（プロ品質） ▼▼▼ */
 
-.day-title {
-    font-size: 1.2rem;
-    margin: 25px 0 10px;
-    font-weight: bold;
-    letter-spacing: 1px;
-}
-
-.schedule {
-    margin-top: 10px;
-    margin-bottom: 25px;
-}
-
-.schedule .row {
-    display: grid;
-    grid-template-columns: 70px 110px 1fr;
-    gap: 8px;
-    margin: 10px 0;
-    align-items: center;
-}
-
-.schedule .time {
-    font-weight: bold;
-    white-space: nowrap;
-}
-
-.schedule .place {
-    white-space: nowrap;
-    opacity: 0.9;
-}
-
-.schedule .desc {
-    line-height: 1.5rem;
-}
-
-.drive {
-    grid-template-columns: 70px 20px 1fr !important;
-}
-
-.drive .pipe {
-    text-align: center;
-    color: #ccc;
-    font-size: 1.2rem;
-}
-
-.break {
-    text-align: center;
-    margin: 25px 0;
-    opacity: 0.85;
-    font-size: 0.95rem;
-}
-
-/* ▼ スマホ最適化（幅が狭い時） ▼ */
-@media (max-width: 430px) {
-    .schedule .row {
-        grid-template-columns: 60px 90px 1fr;
-        gap: 6px;
-    }
+    /* ▼▼▼ タイムライン（完全揃え版） ▼▼▼ */
 
     .day-title {
-        font-size: 1.1rem;
+        font-size: 1.2rem;
+        margin: 25px 0 10px;
+        font-weight: bold;
+        letter-spacing: 1px;
     }
 
-    .schedule .desc {
-        font-size: 0.95rem;
-        line-height: 1.4rem;
+    .timeline {
+        margin: 20px 0;
+        position: relative;
     }
-}
-    /* ▼ タイムライン縦線（時刻の中央に揃える） ▼ */
-.timeline-block {
-    position: relative;
-    padding-left: 70px; /* 時刻幅と合わせる */
-    margin: 10px 0;
-}
 
-.timeline-block .time {
-    position: absolute;
-    left: 0;
-    width: 70px;
-    font-weight: bold;
-}
+    .tl-row {
+        position: relative;
+        padding-left: 70px;
+        min-height: 40px;
+        margin: 10px 0;
+    }
 
-.timeline-block {
-    position: relative;
-    padding-left: 70px; /* 時刻の幅と合わせる */
-    margin: 10px 0;
-}
+    .tl-row .time {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 70px;
+        font-weight: bold;
+        white-space: nowrap;
+    }
 
-.timeline-block .time {
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 70px;
-    font-weight: bold;
-}
+    .tl-row .line {
+        position: absolute;
+        left: 35px;
+        width: 2px;
+        background: #ccc;
+    }
 
-/* 縦線：デフォルト（説明だけの行など） */
-.timeline-block .line {
-    position: absolute;
-    left: 35px; /* 時刻70pxの中央 */
-    top: 0;
-    bottom: 0;
-    width: 2px;
-    background: #ccc;
-}
+    .tl-row.start .line {
+        top: 1.4em;
+        bottom: 0;
+    }
 
-/* 時刻がある行では、文字の下から線を伸ばす */
-.timeline-block.has-time .line {
-    top: 1.4em;   /* 時刻テキストの下あたりから */
-}
+    .tl-row.mid .line {
+        top: 0;
+        bottom: 0;
+    }
 
-/* 一番最後の行は、下に伸ばしすぎないように */
-.timeline-block.last .line {
-    bottom: 0.4em;
-}
+    .tl-row.end .line {
+        top: 0;
+        bottom: 1.4em;
+    }
 
+    .tl-row.no-time .line {
+        top: 0;
+        bottom: 0;
+    }
 
-.timeline-block .desc {
-    margin-left: 10px;
-    line-height: 1.6rem;
-}
+    .tl-row .desc {
+        margin-left: 10px;
+        line-height: 1.6rem;
+    }
 
+    @media (max-width: 430px) {
+        .tl-row {
+            padding-left: 60px;
+        }
+        .tl-row .time {
+            width: 60px;
+        }
+        .tl-row .line {
+            left: 30px;
+        }
+    }
 
 </style>
 </head>
@@ -355,7 +306,7 @@
 <div id="bg1" class="bg-layer"></div>
 <div id="bg2" class="bg-layer"></div>
 
-<!-- ▼▼▼ パスワードロックのみ ▼▼▼ -->
+<!-- ▼ パスワードロック -->
 <div id="lock-screen">
     <div class="lock-card">
         <div class="card-header">BOARDING PASS</div>
@@ -374,7 +325,6 @@
 </div>
 
 <script>
-/* ▼ パスワード判定 ▼ */
 function unlock() {
     const p = document.getElementById("pass").value.trim();
     if (p === "さんこいち") {
@@ -383,43 +333,6 @@ function unlock() {
         alert("BOARDING CODE ERROR");
     }
 }
-
-/* ▼ ハンバーガーメニュー ▼ */
-const menuBtn = document.getElementById("menu-button");
-const menuPanel = document.getElementById("menu-panel");
-
-menuBtn.addEventListener("click", () => {
-    const open = menuPanel.style.display === "flex";
-    menuPanel.style.display = open ? "none" : "flex";
-    menuBtn.classList.toggle("active");
-});
-
-document.querySelectorAll("#menu-panel a").forEach(link => {
-    link.addEventListener("click", e => {
-        e.preventDefault();
-        const target = document.querySelector(link.getAttribute("href"));
-        target.scrollIntoView({ behavior: "smooth" });
-
-        menuPanel.style.display = "none";
-        menuBtn.classList.remove("active");
-    });
-});
-
-/* ▼ 概要フェードアウト ▼ */
-const overview = document.getElementById("sec-overview");
-
-window.addEventListener("scroll", () => {
-    const rect = overview.getBoundingClientRect();
-    const fadeStart = window.innerHeight * 0.2;
-    const fadeEnd = window.innerHeight * 0.6;
-
-    if (rect.top < fadeEnd) {
-        const opacity = Math.max(0, (rect.top - fadeStart) / (fadeEnd - fadeStart));
-        overview.style.opacity = opacity;
-    } else {
-        overview.style.opacity = 1;
-    }
-});
 </script>
 
 <!-- ▼▼▼ 本編 ▼▼▼ -->
@@ -439,68 +352,61 @@ window.addEventListener("scroll", () => {
 
         <h3 class="day-title">◆ 2026年06月20日</h3>
 
-        <div class="schedule">
+        <div class="timeline">
 
-            <div class="row">
+            <div class="tl-row start">
                 <span class="time">10:00</span>
-                <span class="place">浮間舟渡</span>
-                <span class="desc">きりさん 回収</span>
+                <span class="line"></span>
+                <span class="desc">浮間舟渡　出発（きりさん ピックアップ）</span>
             </div>
 
-            <div class="row">
+            <div class="tl-row mid">
                 <span class="time">10:40</span>
-                <span class="place">新中野</span>
-                <span class="desc">もりいさん 回収</span>
+                <span class="line"></span>
+                <span class="desc">新中野　もりい ピックアップ</span>
             </div>
 
-            <div class="row">
+            <div class="tl-row mid">
                 <span class="time">10:50</span>
-                <span class="place">柴田屋酒店</span>
-                <span class="desc">酒さん 回収</span>
+                <span class="line"></span>
+                <span class="desc">柴田屋酒店　酒 ピックアップ</span>
             </div>
 
-<div class="timeline">
+            <div class="tl-row mid">
+                <span class="time">11:00</span>
+                <span class="line"></span>
+                <span class="desc">＜ただのドライブ＞</span>
+            </div>
 
-    <div class="tl-row start">
-        <span class="time">11:00</span>
-        <span class="line"></span>
-        <span class="desc">ただのドライブ</span>
-    </div>
+            <div class="tl-row mid">
+                <span class="time">13:00</span>
+                <span class="line"></span>
+                <span class="desc">勝沼 到着</span>
+            </div>
 
-    <div class="tl-row mid">
-        <span class="time">13:00</span>
-        <span class="line"></span>
-        <span class="desc">勝沼 到着</span>
-    </div>
+            <div class="tl-row mid no-time">
+                <span class="time"></span>
+                <span class="line"></span>
+                <span class="desc">＜森井ワイナリーツアー　ここで昼飯想定＞</span>
+            </div>
 
-    <div class="tl-row mid no-time">
-        <span class="time"></span>
-        <span class="line"></span>
-        <span class="desc">森井ワイナリーツアー（ここで昼飯想定）</span>
-    </div>
+            <div class="tl-row mid">
+                <span class="time">14:00</span>
+                <span class="line"></span>
+                <span class="desc">山梨のどこか　出発</span>
+            </div>
 
-    <div class="tl-row mid">
-        <span class="time">14:00</span>
-        <span class="line"></span>
-        <span class="desc">山梨のどこか 出発</span>
-    </div>
+            <div class="tl-row mid no-time">
+                <span class="time"></span>
+                <span class="line"></span>
+                <span class="desc">＜宿へのわくわくドライブ＞</span>
+            </div>
 
-    <div class="tl-row mid no-time">
-        <span class="time"></span>
-        <span class="line"></span>
-        <span class="desc">宿へのわくわくドライブ</span>
-    </div>
-
-    <div class="tl-row end">
-        <span class="time">15:30</span>
-        <span class="line"></span>
-        <span class="desc">西山温泉 慶運館 到着</span>
-    </div>
-
-</div>
-
-
-
+            <div class="tl-row end">
+                <span class="time">15:30</span>
+                <span class="line"></span>
+                <span class="desc">西山温泉 慶運館　到着</span>
+            </div>
 
         </div>
 
@@ -508,33 +414,32 @@ window.addEventListener("scroll", () => {
 
         <h3 class="day-title">◆ 2026年06月21日</h3>
 
-<div class="timeline">
+        <div class="timeline">
 
-    <div class="tl-row start">
-        <span class="time">10:00</span>
-        <span class="line"></span>
-        <span class="desc">チェックアウト</span>
-    </div>
+            <div class="tl-row start">
+                <span class="time">10:00</span>
+                <span class="line"></span>
+                <span class="desc">チェックアウト</span>
+            </div>
 
-    <div class="tl-row mid">
-        <span class="time">12:00</span>
-        <span class="line"></span>
-        <span class="desc">昼飯どこかで食おうか</span>
-    </div>
+            <div class="tl-row mid">
+                <span class="time">12:00</span>
+                <span class="line"></span>
+                <span class="desc">昼飯どこかで食おうか</span>
+            </div>
 
-    <div class="tl-row end">
-        <span class="time">15:00</span>
-        <span class="line"></span>
-        <span class="desc">東京 着</span>
-    </div>
+            <div class="tl-row end">
+                <span class="time">15:00</span>
+                <span class="line"></span>
+                <span class="desc">東京着</span>
+            </div>
 
-</div>
+        </div>
 
         <p class="break">～おしまい～</p>
 
     </div>
 </section>
-
 
 <section id="sec-items">
     <h2>持ち物</h2>
