@@ -79,12 +79,12 @@
     #menu-panel a:last-child { border-bottom: none; }
     #menu-panel a:hover { background: #f2f2f2; }
 
-    /* ▼ パスワード画面（そのまま） */
+    /* ▼ パスワード画面（完全に元の構造のまま） */
     #lock-screen {
         position: fixed;
         inset: 0;
         background: rgba(255, 255, 255, 0.55);
-        backdrop-filter: blur(12px);
+        backdrop-filter: blur(10px);
         display: flex;
         justify-content: center;
         align-items: center;
@@ -94,10 +94,10 @@
     .lock-card {
         width: 85%;
         max-width: 360px;
-        background: rgba(255,255,255,0.75);
+        background: rgba(255,255,255,0.7);
         border-radius: 18px;
         padding: 25px 22px;
-        box-shadow: 0 8px 30px rgba(0,0,0,0.08);
+        box-shadow: 0 8px 30px rgba(0,0,0,0.1);
         border: 1px solid rgba(0,0,0,0.05);
         animation: fadeIn 0.5s ease;
         color: #333;
@@ -106,6 +106,69 @@
     @keyframes fadeIn {
         from { opacity: 0; transform: translateY(10px); }
         to { opacity: 1; transform: translateY(0); }
+    }
+
+    .card-header {
+        font-size: 0.9rem;
+        letter-spacing: 2px;
+        color: #444;
+        border-bottom: 1px dashed #bbb;
+        padding-bottom: 8px;
+        margin-bottom: 18px;
+        text-align: center;
+    }
+
+    .label {
+        font-size: 0.75rem;
+        letter-spacing: 1px;
+        color: #666;
+        margin-bottom: 6px;
+    }
+
+    #lock-screen input {
+        width: 100%;
+        padding: 12px;
+        font-size: 18px;
+        border-radius: 10px;
+        border: 1px solid #ccc;
+        margin-bottom: 18px;
+        text-align: center;
+        outline: none;
+        background: rgba(255,255,255,0.9);
+        box-sizing: border-box;
+    }
+
+    #lock-screen button {
+        width: 100%;
+        padding: 12px;
+        font-size: 15px;
+        border-radius: 10px;
+        border: none;
+        background: #7aa7ff;
+        color: #fff;
+        cursor: pointer;
+        letter-spacing: 1px;
+        transition: 0.2s;
+    }
+
+    #lock-screen button:hover {
+        background: #5f8df0;
+    }
+
+    .card-footer {
+        margin-top: 20px;
+        font-size: 0.8rem;
+        color: #555;
+        text-align: center;
+        border-top: 1px dashed #bbb;
+        padding-top: 10px;
+    }
+
+    .card-footer .date {
+        display: block;
+        font-size: 0.75rem;
+        margin-top: 4px;
+        color: #777;
     }
 
     /* ▼ 本編 */
@@ -132,7 +195,7 @@
         box-shadow: 0 4px 20px rgba(0,0,0,0.06);
     }
 
-    /* ▼ Top の文字（黒・中央揃え・風流） */
+    /* ▼ Top の文字（黒・中央揃え・枠なし） */
     #sec-overview p {
         font-size: 1.6rem;
         line-height: 2.6rem;
@@ -204,7 +267,7 @@
     <a href="#sec-hotel">宿泊情報</a>
 </div>
 
-<!-- ▼ パスワードロック（そのまま） -->
+<!-- ▼ パスワードロック（元の構造そのまま） -->
 <div id="lock-screen">
     <div class="lock-card">
         <div class="card-header">BOARDING PASS</div>
@@ -212,7 +275,7 @@
         <div class="card-body">
             <div class="label">BOARDING CODE</div>
             <input type="text" id="pass" placeholder="PASSWORD">
-            <button id="checkin-btn">CHECK IN</button>
+            <button onclick="unlock()">CHECK IN</button>
         </div>
 
         <div class="card-footer">
@@ -225,15 +288,13 @@
 <script>
 /* ▼ パスワード入力でボタン活性化 */
 const passInput = document.getElementById("pass");
-const checkinBtn = document.getElementById("checkin-btn");
+const checkinBtn = document.querySelector("#lock-screen button");
 
 passInput.addEventListener("input", () => {
     if (passInput.value.trim() !== "") {
-        checkinBtn.classList.add("active");
         checkinBtn.style.opacity = "1";
         checkinBtn.style.cursor = "pointer";
     } else {
-        checkinBtn.classList.remove("active");
         checkinBtn.style.opacity = "0.4";
         checkinBtn.style.cursor = "not-allowed";
     }
@@ -244,7 +305,7 @@ passInput.addEventListener("keydown", (e) => {
     if (e.key === "Enter") unlock();
 });
 
-/* ▼ パスワード解除処理 */
+/* ▼ パスワード解除処理（元のまま） */
 function unlock() {
     const p = passInput.value.trim();
     if (p === "さんこいち") {
@@ -254,10 +315,6 @@ function unlock() {
         alert("BOARDING CODE ERROR");
     }
 }
-
-checkinBtn.addEventListener("click", () => {
-    if (checkinBtn.classList.contains("active")) unlock();
-});
 
 /* ▼ ハンバーガーメニュー動作 */
 const menuBtn = document.getElementById("menu-button");
