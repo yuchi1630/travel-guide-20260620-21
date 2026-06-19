@@ -212,6 +212,76 @@
         line-height: 2.4rem;
         color: #fff;
     }
+    /* ▼▼▼ 日程レイアウト（プロ品質） ▼▼▼ */
+
+.day-title {
+    font-size: 1.2rem;
+    margin: 25px 0 10px;
+    font-weight: bold;
+    letter-spacing: 1px;
+}
+
+.schedule {
+    margin-top: 10px;
+    margin-bottom: 25px;
+}
+
+.schedule .row {
+    display: grid;
+    grid-template-columns: 70px 110px 1fr;
+    gap: 8px;
+    margin: 10px 0;
+    align-items: center;
+}
+
+.schedule .time {
+    font-weight: bold;
+    white-space: nowrap;
+}
+
+.schedule .place {
+    white-space: nowrap;
+    opacity: 0.9;
+}
+
+.schedule .desc {
+    line-height: 1.5rem;
+}
+
+.drive {
+    grid-template-columns: 70px 20px 1fr !important;
+}
+
+.drive .pipe {
+    text-align: center;
+    color: #ccc;
+    font-size: 1.2rem;
+}
+
+.break {
+    text-align: center;
+    margin: 25px 0;
+    opacity: 0.85;
+    font-size: 0.95rem;
+}
+
+/* ▼ スマホ最適化（幅が狭い時） ▼ */
+@media (max-width: 430px) {
+    .schedule .row {
+        grid-template-columns: 60px 90px 1fr;
+        gap: 6px;
+    }
+
+    .day-title {
+        font-size: 1.1rem;
+    }
+
+    .schedule .desc {
+        font-size: 0.95rem;
+        line-height: 1.4rem;
+    }
+}
+
 </style>
 </head>
 
@@ -221,7 +291,7 @@
 <div id="menu-button">☰</div>
 
 <div id="menu-panel">
-    <a href="#sec-overview">概要</a>
+    <a href="#sec-overview">Top</a>
     <a href="#sec-schedule">日程</a>
     <a href="#sec-items">持ち物</a>
     <a href="#sec-hotel">宿泊情報</a>
@@ -238,12 +308,12 @@
 
         <div class="card-body">
             <div class="label">BOARDING CODE</div>
-            <input type="text" id="pass" placeholder="さんこいち">
+            <input type="text" id="pass" placeholder="PASSWORD">
             <button onclick="unlock()">CHECK IN</button>
         </div>
 
         <div class="card-footer">
-            TOKYO → SHINJUKU  
+            TOKYO → YAMANASHI  
             <span class="date">2026.06.20-21</span>
         </div>
     </div>
@@ -302,8 +372,8 @@ window.addEventListener("scroll", () => {
 
 <section id="sec-overview">
     <div class="content-box">
-        <p><strong>目的：</strong><br>
-        梅の香りに雨と土の匂い、花々の深い色素を<br>
+        <p>
+        梅の香りに雨と土の匂い<br>花々の深い色素を<br>
         ひと時の旅のレシピに
         </p>
     </div>
@@ -312,9 +382,96 @@ window.addEventListener("scroll", () => {
 <section id="sec-schedule">
     <h2>日程</h2>
     <div class="content-box">
-        <p>ここに日程が入るよ。</p>
+
+        <h3 class="day-title">◆ 2026年06月20日</h3>
+
+        <div class="schedule">
+
+            <div class="row">
+                <span class="time">10:00</span>
+                <span class="place">浮間舟渡</span>
+                <span class="desc">出発（きりさん ピックアップ）</span>
+            </div>
+
+            <div class="row">
+                <span class="time">10:40</span>
+                <span class="place">新中野</span>
+                <span class="desc">もりい ピックアップ</span>
+            </div>
+
+            <div class="row">
+                <span class="time">10:50</span>
+                <span class="place">柴田屋酒店</span>
+                <span class="desc">酒 ピックアップ</span>
+            </div>
+
+            <div class="row drive">
+                <span class="time">11:00</span>
+                <span class="pipe">｜</span>
+                <span class="desc">ただのドライブ</span>
+            </div>
+
+            <div class="row">
+                <span class="time">13:00</span>
+                <span class="place">勝沼</span>
+                <span class="desc">到着</span>
+            </div>
+
+            <div class="row drive">
+                <span class="time"></span>
+                <span class="pipe">｜</span>
+                <span class="desc">森井ワイナリーツアー（ここで昼飯想定）</span>
+            </div>
+
+            <div class="row">
+                <span class="time">14:00</span>
+                <span class="place">山梨のどこか</span>
+                <span class="desc">出発</span>
+            </div>
+
+            <div class="row drive">
+                <span class="time"></span>
+                <span class="pipe">｜</span>
+                <span class="desc">宿へのわくわくドライブ</span>
+            </div>
+
+            <div class="row">
+                <span class="time">15:30</span>
+                <span class="place">西山温泉 慶運館</span>
+                <span class="desc">到着</span>
+            </div>
+
+        </div>
+
+        <p class="break">～ひと時の安らぎタイム～</p>
+
+        <h3 class="day-title">◆ 2026年06月21日</h3>
+
+        <div class="schedule">
+            <div class="row">
+                <span class="time">10:00</span>
+                <span class="place"></span>
+                <span class="desc">チェックアウト</span>
+            </div>
+
+            <div class="row">
+                <span class="time">12:00</span>
+                <span class="place"></span>
+                <span class="desc">昼飯どこかで食おうか</span>
+            </div>
+
+            <div class="row">
+                <span class="time">15:00</span>
+                <span class="place">東京</span>
+                <span class="desc">着</span>
+            </div>
+        </div>
+
+        <p class="break">～おしまい～</p>
+
     </div>
 </section>
+
 
 <section id="sec-items">
     <h2>持ち物</h2>
