@@ -12,19 +12,21 @@
         color: #333;
         overflow-x: hidden;
         overflow-y: hidden; /* ▼ ロック中はスクロール禁止 */
+        transition: background 1s ease;
     }
 
-    /* ▼ 背景（Top とそれ以降で切り替え） */
+    /* ▼ Top（最上部）の背景：柔らかい光 × クリーム色 */
     body.top-active {
         background:
-            radial-gradient(circle at 30% 20%, rgba(255,255,255,0.9), rgba(255,240,230,0.9)),
-            linear-gradient(135deg, #f9efe7, #f3d9c4);
+            radial-gradient(circle at 30% 20%, rgba(255,255,255,0.95), rgba(255,245,230,0.9)),
+            linear-gradient(135deg, #f7f3e9, #f0e4d2);
     }
 
-    body.main-active {
+    /* ▼ Top以降：カーキ色へ自然に移行するモダン背景 */
+    body.khaki-active {
         background:
-            radial-gradient(circle at 20% 20%, rgba(255,255,255,0.9), rgba(230,235,250,0.9)),
-            linear-gradient(135deg, #e8eef9, #d7dff0);
+            radial-gradient(circle at 20% 20%, rgba(255,255,255,0.85), rgba(210,220,205,0.9)),
+            linear-gradient(135deg, #dfe7d8, #c3cfb8);
     }
 
     /* ▼ ハンバーガーメニュー */
@@ -106,75 +108,6 @@
         to { opacity: 1; transform: translateY(0); }
     }
 
-    .card-header {
-        font-size: 0.9rem;
-        letter-spacing: 2px;
-        color: #444;
-        border-bottom: 1px dashed #bbb;
-        padding-bottom: 8px;
-        margin-bottom: 18px;
-        text-align: center;
-    }
-
-    .label {
-        font-size: 0.75rem;
-        letter-spacing: 1px;
-        color: #666;
-        margin-bottom: 6px;
-    }
-
-    #lock-screen input {
-        width: 100%;
-        padding: 12px;
-        font-size: 18px;
-        border-radius: 10px;
-        border: 1px solid #ccc;
-        margin-bottom: 18px;
-        text-align: center;
-        outline: none;
-        background: rgba(255,255,255,0.9);
-        box-sizing: border-box;
-    }
-
-    #checkin-btn {
-        width: 100%;
-        padding: 12px;
-        font-size: 15px;
-        border-radius: 10px;
-        border: none;
-        background: #7aa7ff;
-        opacity: 0.4;
-        color: #fff;
-        cursor: not-allowed;
-        letter-spacing: 1px;
-        transition: 0.2s;
-    }
-
-    #checkin-btn.active {
-        opacity: 1;
-        cursor: pointer;
-    }
-
-    #checkin-btn.active:hover {
-        background: #5f8df0;
-    }
-
-    .card-footer {
-        margin-top: 20px;
-        font-size: 0.8rem;
-        color: #555;
-        text-align: center;
-        border-top: 1px dashed #bbb;
-        padding-top: 10px;
-    }
-
-    .card-footer .date {
-        display: block;
-        font-size: 0.75rem;
-        margin-top: 4px;
-        color: #777;
-    }
-
     /* ▼ 本編 */
     section {
         min-height: 100vh;
@@ -199,20 +132,21 @@
         box-shadow: 0 4px 20px rgba(0,0,0,0.06);
     }
 
-    /* ▼ Top（特別な風流デザイン） */
+    /* ▼ Top の文字（黒・中央揃え・風流） */
     #sec-overview p {
         font-size: 1.6rem;
         line-height: 2.6rem;
-        color: rgba(255,255,255,0.95);
-        letter-spacing: 0.15rem;
+        color: #222;
+        letter-spacing: 0.12rem;
         font-weight: 300;
-        text-shadow: 0 2px 6px rgba(0,0,0,0.25);
+        text-align: center;
+        margin: 0;
     }
 
     #sec-overview .content-box {
-        background: rgba(255,255,255,0.15);
-        border: 1px solid rgba(255,255,255,0.25);
-        backdrop-filter: blur(14px);
+        background: rgba(255,255,255,0.2);
+        border: none;
+        box-shadow: none;
     }
 
     /* ▼ タイムライン */
@@ -242,8 +176,6 @@
         color: #333;
     }
 
-    .tl-row .line { display: none !important; }
-
     .tl-row .desc {
         margin-left: 10px;
         line-height: 1.6rem;
@@ -256,11 +188,6 @@
         opacity: 0.85;
         font-size: 0.95rem;
         color: #555;
-    }
-
-    @media (max-width: 430px) {
-        .tl-row { padding-left: 60px; }
-        .tl-row .time { width: 60px; }
     }
 </style>
 </head>
@@ -277,7 +204,7 @@
     <a href="#sec-hotel">宿泊情報</a>
 </div>
 
-<!-- ▼ パスワードロック -->
+<!-- ▼ パスワードロック（そのまま） -->
 <div id="lock-screen">
     <div class="lock-card">
         <div class="card-header">BOARDING PASS</div>
@@ -303,8 +230,12 @@ const checkinBtn = document.getElementById("checkin-btn");
 passInput.addEventListener("input", () => {
     if (passInput.value.trim() !== "") {
         checkinBtn.classList.add("active");
+        checkinBtn.style.opacity = "1";
+        checkinBtn.style.cursor = "pointer";
     } else {
         checkinBtn.classList.remove("active");
+        checkinBtn.style.opacity = "0.4";
+        checkinBtn.style.cursor = "not-allowed";
     }
 });
 
@@ -346,14 +277,14 @@ document.addEventListener("click", (e) => {
     }
 });
 
-/* ▼ スクロール位置で背景切り替え（Top → Main） */
+/* ▼ スクロールで背景を Top → カーキ に切り替え */
 window.addEventListener("scroll", () => {
-    if (window.scrollY > window.innerHeight * 0.5) {
+    if (window.scrollY > window.innerHeight * 0.4) {
         document.body.classList.remove("top-active");
-        document.body.classList.add("main-active");
+        document.body.classList.add("khaki-active");
     } else {
         document.body.classList.add("top-active");
-        document.body.classList.remove("main-active");
+        document.body.classList.remove("khaki-active");
     }
 });
 </script>
