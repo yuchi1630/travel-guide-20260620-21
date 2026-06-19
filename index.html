@@ -29,6 +29,28 @@
             linear-gradient(135deg, #dfe7d8, #c3cfb8);
     }
 
+    /* ▼ Top の固定レイヤー（スクロールでフェードアウト） */
+    #top-overlay {
+        position: fixed;
+        inset: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        pointer-events: none;
+        z-index: 5;
+        transition: opacity 0.3s ease;
+    }
+
+    #top-overlay p {
+        font-size: 1.6rem;
+        line-height: 2.6rem;
+        color: #222;
+        letter-spacing: 0.12rem;
+        font-weight: 300;
+        text-align: center;
+        margin: 0;
+    }
+
     /* ▼ ハンバーガーメニュー */
     #menu-button {
         position: fixed;
@@ -79,7 +101,7 @@
     #menu-panel a:last-child { border-bottom: none; }
     #menu-panel a:hover { background: #f2f2f2; }
 
-    /* ▼ パスワード画面（完全に元の構造のまま） */
+    /* ▼ パスワード画面（元の構造そのまま） */
     #lock-screen {
         position: fixed;
         inset: 0;
@@ -195,19 +217,9 @@
         box-shadow: 0 4px 20px rgba(0,0,0,0.06);
     }
 
-    /* ▼ Top の文字（黒・中央揃え・枠なし） */
-    #sec-overview p {
-        font-size: 1.6rem;
-        line-height: 2.6rem;
-        color: #222;
-        letter-spacing: 0.12rem;
-        font-weight: 300;
-        text-align: center;
-        margin: 0;
-    }
-
+    /* ▼ Top セクション（元の content-box は透明化） */
     #sec-overview .content-box {
-        background: rgba(255,255,255,0.2);
+        background: transparent;
         border: none;
         box-shadow: none;
     }
@@ -256,6 +268,15 @@
 </head>
 
 <body class="top-active">
+
+<!-- ▼ Top の固定レイヤー -->
+<div id="top-overlay">
+    <p>
+        梅の香りに雨と土の匂い<br>
+        花々の深い色素を<br>
+        ひと時の旅のレシピに
+    </p>
+</div>
 
 <!-- ▼ ハンバーガーメニュー -->
 <div id="menu-button">☰</div>
@@ -336,7 +357,16 @@ document.addEventListener("click", (e) => {
 
 /* ▼ スクロールで背景を Top → カーキ に切り替え */
 window.addEventListener("scroll", () => {
-    if (window.scrollY > window.innerHeight * 0.4) {
+    const fadeStart = 0;
+    const fadeEnd = window.innerHeight * 0.8;
+    const y = window.scrollY;
+
+    let opacity = 1 - (y - fadeStart) / (fadeEnd - fadeStart);
+    opacity = Math.max(0, Math.min(1, opacity));
+
+    document.getElementById("top-overlay").style.opacity = opacity;
+
+    if (y > window.innerHeight * 0.4) {
         document.body.classList.remove("top-active");
         document.body.classList.add("khaki-active");
     } else {
@@ -349,12 +379,7 @@ window.addEventListener("scroll", () => {
 <!-- ▼▼▼ 本編 ▼▼▼ -->
 
 <section id="sec-overview">
-    <div class="content-box">
-        <p>
-        梅の香りに雨と土の匂い<br>花々の深い色素を<br>
-        ひと時の旅のレシピに
-        </p>
-    </div>
+    <div class="content-box"></div>
 </section>
 
 <section id="sec-schedule">
