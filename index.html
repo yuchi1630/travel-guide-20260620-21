@@ -11,25 +11,25 @@
         font-family: "Helvetica Neue", sans-serif;
         color: #333;
         overflow-x: hidden;
-        overflow-y: hidden; /* ▼ ロック中はスクロール禁止 */
+        overflow-y: hidden;
         transition: background 1s ease;
     }
 
-    /* ▼ Top（最上部）の背景：柔らかい光 × クリーム色 */
+    /* ▼ Top（草と雨の薄い青緑） */
     body.top-active {
         background:
-            radial-gradient(circle at 30% 20%, rgba(255,255,255,0.95), rgba(255,245,230,0.9)),
-            linear-gradient(135deg, #f7f3e9, #f0e4d2);
+            radial-gradient(circle at 30% 20%, rgba(255,255,255,0.95), rgba(230,245,240,0.9)),
+            linear-gradient(135deg, #e8f5f9, #e6f4ec);
     }
 
-    /* ▼ Top以降：カーキ色へ自然に移行するモダン背景 */
+    /* ▼ スクロール後（カーキ） */
     body.khaki-active {
         background:
             radial-gradient(circle at 20% 20%, rgba(255,255,255,0.85), rgba(210,220,205,0.9)),
             linear-gradient(135deg, #dfe7d8, #c3cfb8);
     }
 
-    /* ▼ Top の固定レイヤー（スクロールでフェードアウト） */
+    /* ▼ Top の固定レイヤー（フェードアウト） */
     #top-overlay {
         position: fixed;
         inset: 0;
@@ -217,7 +217,7 @@
         box-shadow: 0 4px 20px rgba(0,0,0,0.06);
     }
 
-    /* ▼ Top セクション（元の content-box は透明化） */
+    /* ▼ Top セクション（透明化） */
     #sec-overview .content-box {
         background: transparent;
         border: none;
@@ -326,7 +326,7 @@ passInput.addEventListener("keydown", (e) => {
     if (e.key === "Enter") unlock();
 });
 
-/* ▼ パスワード解除処理（元のまま） */
+/* ▼ パスワード解除処理 */
 function unlock() {
     const p = passInput.value.trim();
     if (p === "さんこいち") {
@@ -355,7 +355,7 @@ document.addEventListener("click", (e) => {
     }
 });
 
-/* ▼ スクロールで背景を Top → カーキ に切り替え */
+/* ▼ スクロールで Top をフェードアウト & 背景切り替え */
 window.addEventListener("scroll", () => {
     const fadeStart = 0;
     const fadeEnd = window.innerHeight * 0.8;
