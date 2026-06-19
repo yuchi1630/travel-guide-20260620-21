@@ -80,55 +80,13 @@
         background: #f0f0f0;
     }
 
-    /* ▼▼▼ ① 確認ページ ▼▼▼ */
-    #confirm-screen {
-        position: fixed;
-        inset: 0;
-        background: rgba(0,0,0,0.55);
-        backdrop-filter: blur(6px);
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        z-index: 99999;
-    }
-
-    .confirm-box {
-        background: rgba(255,255,255,0.9);
-        padding: 35px 28px;
-        border-radius: 18px;
-        text-align: center;
-        width: 85%;
-        max-width: 360px;
-        color: #333;
-        box-shadow: 0 8px 30px rgba(0,0,0,0.2);
-    }
-
-    .confirm-box h2 {
-        margin-bottom: 20px;
-        font-size: 1.3rem;
-        color: #444;
-    }
-
-    .confirm-buttons button {
-        margin: 10px;
-        padding: 12px 30px;
-        font-size: 16px;
-        border-radius: 10px;
-        border: none;
-        cursor: pointer;
-        color: #fff;
-    }
-
-    #yes-btn { background: #4CAF50; }
-    #no-btn { background: #e74c3c; }
-
-    /* ▼▼▼ ② パスワード画面 ▼▼▼ */
+    /* ▼▼▼ パスワード画面 ▼▼▼ */
     #lock-screen {
         position: fixed;
         inset: 0;
         background: rgba(255, 255, 255, 0.55);
         backdrop-filter: blur(10px);
-        display: none;
+        display: flex; /* ← 最初から表示 */
         justify-content: center;
         align-items: center;
         z-index: 9999;
@@ -215,29 +173,6 @@
         color: #777;
     }
 
-    /* ▼▼▼ ③ NO のページ ▼▼▼ */
-    #denied-screen {
-        position: fixed;
-        inset: 0;
-        background: rgba(0,0,0,0.65);
-        backdrop-filter: blur(6px);
-        display: none;
-        justify-content: center;
-        align-items: center;
-        z-index: 99999;
-    }
-
-    .denied-box {
-        background: rgba(255,255,255,0.9);
-        padding: 35px 28px;
-        border-radius: 18px;
-        text-align: center;
-        width: 85%;
-        max-width: 360px;
-        color: #333;
-        box-shadow: 0 8px 30px rgba(0,0,0,0.2);
-    }
-
     /* ▼▼▼ 本編 ▼▼▼ */
     section {
         min-height: 100vh;
@@ -296,18 +231,7 @@
 <div id="bg1" class="bg-layer"></div>
 <div id="bg2" class="bg-layer"></div>
 
-<!-- ▼▼▼ ① 確認ページ ▼▼▼ -->
-<div id="confirm-screen">
-    <div class="confirm-box">
-        <h2>あなたは さんこいち メンバーですか？</h2>
-        <div class="confirm-buttons">
-            <button id="yes-btn">YES</button>
-            <button id="no-btn">NO</button>
-        </div>
-    </div>
-</div>
-
-<!-- ▼▼▼ ② パスワードロック ▼▼▼ -->
+<!-- ▼▼▼ パスワードロックのみ ▼▼▼ -->
 <div id="lock-screen">
     <div class="lock-card">
         <div class="card-header">BOARDING PASS</div>
@@ -325,26 +249,7 @@
     </div>
 </div>
 
-<!-- ▼▼▼ ③ NO のページ ▼▼▼ -->
-<div id="denied-screen">
-    <div class="denied-box">
-        <h2>ここから先に進む資格はありません</h2>
-        <p>このページは さんこいち メンバー専用です</p>
-    </div>
-</div>
-
 <script>
-/* ▼ YES/NO の動作 ▼ */
-document.getElementById("yes-btn").onclick = () => {
-    document.getElementById("confirm-screen").style.display = "none";
-    document.getElementById("lock-screen").style.display = "flex";
-};
-
-document.getElementById("no-btn").onclick = () => {
-    document.getElementById("confirm-screen").style.display = "none";
-    document.getElementById("denied-screen").style.display = "flex";
-};
-
 /* ▼ パスワード判定 ▼ */
 function unlock() {
     const p = document.getElementById("pass").value.trim();
