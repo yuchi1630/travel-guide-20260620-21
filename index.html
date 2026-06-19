@@ -281,6 +281,35 @@
         line-height: 1.4rem;
     }
 }
+    /* ▼ タイムライン縦線（時刻の中央に揃える） ▼ */
+.timeline-block {
+    position: relative;
+    padding-left: 70px; /* 時刻幅と合わせる */
+    margin: 10px 0;
+}
+
+.timeline-block .time {
+    position: absolute;
+    left: 0;
+    width: 70px;
+    font-weight: bold;
+}
+
+.timeline-block .line {
+    position: absolute;
+    left: 35px; /* ← 時刻70pxの中央 */
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: #ccc;
+    transform: translateX(-1px);
+}
+
+.timeline-block .desc {
+    margin-left: 10px;
+    line-height: 1.6rem;
+}
+
 
 </style>
 </head>
@@ -405,41 +434,41 @@ window.addEventListener("scroll", () => {
                 <span class="desc">酒 ピックアップ</span>
             </div>
 
-            <div class="row drive">
-                <span class="time">11:00</span>
-                <span class="pipe">｜</span>
-                <span class="desc">ただのドライブ</span>
-            </div>
+ <div class="timeline-block">
+    <span class="time">11:00</span>
+    <span class="line"></span>
+    <span class="desc">ただのドライブ</span>
+</div>
 
-            <div class="row">
-                <span class="time">13:00</span>
-                <span class="place">勝沼</span>
-                <span class="desc">到着</span>
-            </div>
+<div class="timeline-block">
+    <span class="time">13:00</span>
+    <span class="line"></span>
+    <span class="desc">勝沼 到着</span>
+</div>
 
-            <div class="row drive">
-                <span class="time"></span>
-                <span class="pipe">｜</span>
-                <span class="desc">森井ワイナリーツアー（ここで昼飯想定）</span>
-            </div>
+<div class="timeline-block">
+    <span class="time"></span>
+    <span class="line"></span>
+    <span class="desc">森井ワイナリーツアー（ここで昼飯想定）</span>
+</div>
 
-            <div class="row">
-                <span class="time">14:00</span>
-                <span class="place">山梨のどこか</span>
-                <span class="desc">出発</span>
-            </div>
+<div class="timeline-block">
+    <span class="time">14:00</span>
+    <span class="line"></span>
+    <span class="desc">山梨のどこか 出発</span>
+</div>
 
-            <div class="row drive">
-                <span class="time"></span>
-                <span class="pipe">｜</span>
-                <span class="desc">宿へのわくわくドライブ</span>
-            </div>
+<div class="timeline-block">
+    <span class="time"></span>
+    <span class="line"></span>
+    <span class="desc">宿へのわくわくドライブ</span>
+</div>
 
-            <div class="row">
-                <span class="time">15:30</span>
-                <span class="place">西山温泉 慶運館</span>
-                <span class="desc">到着</span>
-            </div>
+<div class="timeline-block">
+    <span class="time">15:30</span>
+    <span class="line"></span>
+    <span class="desc">西山温泉 慶運館 到着</span>
+</div>
 
         </div>
 
