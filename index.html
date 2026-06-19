@@ -8,23 +8,16 @@
 <style>
     body {
         margin: 0;
-        font-family: sans-serif;
-        color: #fff;
+        font-family: "Helvetica Neue", sans-serif;
+        color: #333;
         overflow-x: hidden;
+        background: linear-gradient(135deg, #f7f8fa, #e6e9ef);
     }
 
-    /* 背景レイヤー（クロスフェード用） */
+    /* 背景レイヤー削除 */
     .bg-layer {
-        position: fixed;
-        inset: 0;
-        background-size: cover;
-        background-position: center;
-        z-index: -1;
-        transition: opacity 1.2s ease-in-out;
-        will-change: opacity;
+        display: none !important;
     }
-    #bg1 { opacity: 1; }
-    #bg2 { opacity: 0; }
 
     /* ▼▼▼ ハンバーガーメニュー ▼▼▼ */
     #menu-button {
@@ -33,7 +26,7 @@
         left: 18px;
         width: 42px;
         height: 42px;
-        background: rgba(255,255,255,0.85);
+        background: rgba(255,255,255,0.9);
         color: #333;
         border-radius: 50%;
         display: flex;
@@ -43,24 +36,25 @@
         cursor: pointer;
         z-index: 9999;
         transition: transform 0.25s ease, background 0.25s ease;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.15);
     }
 
     #menu-button.active {
-        transform: scale(1.2);
-        background: rgba(255,255,255,1);
+        transform: scale(1.15);
+        background: #fff;
     }
 
     #menu-panel {
         position: fixed;
         top: 70px;
         left: 18px;
-        background: rgba(255,255,255,0.95);
+        background: rgba(255,255,255,0.9);
         border-radius: 12px;
         padding: 12px 0;
         width: 160px;
         display: none;
         flex-direction: column;
-        box-shadow: 0 6px 20px rgba(0,0,0,0.2);
+        box-shadow: 0 6px 20px rgba(0,0,0,0.15);
         z-index: 9998;
     }
 
@@ -77,7 +71,7 @@
     }
 
     #menu-panel a:hover {
-        background: #f0f0f0;
+        background: #f2f2f2;
     }
 
     /* ▼▼▼ パスワード画面 ▼▼▼ */
@@ -95,13 +89,12 @@
     .lock-card {
         width: 85%;
         max-width: 360px;
-        background: rgba(255,255,255,0.75);
+        background: rgba(255,255,255,0.7);
         border-radius: 18px;
         padding: 25px 22px;
-        box-shadow: 0 8px 30px rgba(0,0,0,0.15);
-        border: 1px solid rgba(0,0,0,0.08);
+        box-shadow: 0 8px 30px rgba(0,0,0,0.1);
+        border: 1px solid rgba(0,0,0,0.05);
         animation: fadeIn 0.5s ease;
-        font-family: "Helvetica Neue", sans-serif;
         color: #333;
     }
 
@@ -146,7 +139,7 @@
         font-size: 15px;
         border-radius: 10px;
         border: none;
-        background: #d8a7b1;
+        background: #7aa7ff;
         color: #fff;
         cursor: pointer;
         letter-spacing: 1px;
@@ -154,7 +147,7 @@
     }
 
     #lock-screen button:hover {
-        background: #c48d9a;
+        background: #5f8df0;
     }
 
     .card-footer {
@@ -180,51 +173,49 @@
         display: flex;
         flex-direction: column;
         justify-content: center;
-        backdrop-filter: brightness(0.75);
     }
 
     h2 {
         margin-bottom: 20px;
         font-size: 2rem;
-        text-shadow: 0 2px 6px rgba(0,0,0,0.4);
+        color: #333;
+        text-shadow: none;
     }
 
     .content-box {
-        background: rgba(0,0,0,0.35);
+        background: rgba(255,255,255,0.6);
         padding: 20px;
-        border-radius: 12px;
-        backdrop-filter: blur(4px);
+        border-radius: 16px;
+        backdrop-filter: blur(12px);
+        color: #333;
+        box-shadow: 0 4px 20px rgba(0,0,0,0.08);
     }
 
     /* ▼▼▼ 概要 ▼▼▼ */
     #sec-overview {
-        position: relative;
         text-align: center;
         padding-top: 25vh;
         padding-bottom: 25vh;
-        transition: opacity 0.8s ease-out;
     }
 
     #sec-overview .content-box {
-        background: none;
-        backdrop-filter: none;
+        background: rgba(255,255,255,0.4);
         font-size: 1.4rem;
         line-height: 2.4rem;
-        color: #fff;
     }
 
-    /* ▼▼▼ タイムライン（完全揃え版） ▼▼▼ */
+    /* ▼▼▼ タイムライン ▼▼▼ */
 
     .day-title {
         font-size: 1.2rem;
         margin: 25px 0 10px;
         font-weight: bold;
         letter-spacing: 1px;
+        color: #333;
     }
 
     .timeline {
         margin: 20px 0;
-        position: relative;
     }
 
     .tl-row {
@@ -240,32 +231,26 @@
         top: 0;
         width: 70px;
         font-weight: bold;
-        white-space: nowrap;
+        color: #333;
     }
 
-    .tl-row.start .line {
-        top: 1.4em;
-        bottom: 0;
-    }
-
-    .tl-row.mid .line {
-        top: 0;
-        bottom: 0;
-    }
-
-    .tl-row.end .line {
-        top: 0;
-        bottom: 1.4em;
-    }
-
-    .tl-row.no-time .line {
-        top: 0;
-        bottom: 0;
+    /* 縦線は非表示 */
+    .tl-row .line {
+        display: none !important;
     }
 
     .tl-row .desc {
         margin-left: 10px;
         line-height: 1.6rem;
+        color: #333;
+    }
+
+    .break {
+        text-align: center;
+        margin: 25px 0;
+        opacity: 0.85;
+        font-size: 0.95rem;
+        color: #555;
     }
 
     @media (max-width: 430px) {
@@ -274,9 +259,6 @@
         }
         .tl-row .time {
             width: 60px;
-        }
-        .tl-row .line {
-            left: 30px;
         }
     }
 
@@ -294,10 +276,6 @@
     <a href="#sec-items">持ち物</a>
     <a href="#sec-hotel">宿泊情報</a>
 </div>
-
-<!-- 背景レイヤー -->
-<div id="bg1" class="bg-layer"></div>
-<div id="bg2" class="bg-layer"></div>
 
 <!-- ▼ パスワードロック -->
 <div id="lock-screen">
@@ -347,58 +325,49 @@ function unlock() {
 
         <div class="timeline">
 
-            <div class="tl-row start">
+            <div class="tl-row">
                 <span class="time">10:00</span>
-                <span class="line"></span>
-                <span class="desc">浮間舟渡 出発 （きりさん 回収）</span>
+                <span class="desc">浮間舟渡 出発（きりさん 回収）</span>
             </div>
 
-            <div class="tl-row mid">
+            <div class="tl-row">
                 <span class="time">10:40</span>
-                <span class="line"></span>
                 <span class="desc">新中野　もりいさん 回収</span>
             </div>
 
-            <div class="tl-row mid">
+            <div class="tl-row">
                 <span class="time">10:50</span>
-                <span class="line"></span>
                 <span class="desc">柴田屋酒店　酒 回収</span>
             </div>
 
-            <div class="tl-row mid">
+            <div class="tl-row">
                 <span class="time">11:00</span>
-                <span class="line"></span>
                 <span class="desc">＜ただのドライブ＞</span>
             </div>
 
-            <div class="tl-row mid">
+            <div class="tl-row">
                 <span class="time">13:00</span>
-                <span class="line"></span>
                 <span class="desc">勝沼 到着</span>
             </div>
 
-            <div class="tl-row mid no-time">
+            <div class="tl-row">
                 <span class="time"></span>
-                <span class="line"></span>
                 <span class="desc">＜森井ワイナリーツアー＞</span>
             </div>
 
-            <div class="tl-row mid">
+            <div class="tl-row">
                 <span class="time">14:00</span>
-                <span class="line"></span>
-                <span class="desc">山梨のどこか　出発</span>
+                <span class="desc">山梨のどこか 出発</span>
             </div>
 
-            <div class="tl-row mid no-time">
+            <div class="tl-row">
                 <span class="time"></span>
-                <span class="line"></span>
                 <span class="desc">＜宿へのわくわくドライブ＞</span>
             </div>
 
-            <div class="tl-row end">
+            <div class="tl-row">
                 <span class="time">15:30</span>
-                <span class="line"></span>
-                <span class="desc">西山温泉 慶運館　到着</span>
+                <span class="desc">西山温泉 慶運館 到着</span>
             </div>
 
         </div>
@@ -409,21 +378,18 @@ function unlock() {
 
         <div class="timeline">
 
-            <div class="tl-row start">
+            <div class="tl-row">
                 <span class="time">10:00</span>
-                <span class="line"></span>
                 <span class="desc">チェックアウト</span>
             </div>
 
-            <div class="tl-row mid">
+            <div class="tl-row">
                 <span class="time">12:00</span>
-                <span class="line"></span>
                 <span class="desc">昼飯どこかで食おうか</span>
             </div>
 
-            <div class="tl-row end">
+            <div class="tl-row">
                 <span class="time">15:00</span>
-                <span class="line"></span>
                 <span class="desc">東京着</span>
             </div>
 
@@ -447,50 +413,6 @@ function unlock() {
         <p>ここに宿泊情報が入るよ。</p>
     </div>
 </section>
-
-<!-- 背景クロスフェード -->
-<script>
-    const backgrounds = [
-        "url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e')",
-        "url('https://images.unsplash.com/photo-1501785888041-af3ef285b470')",
-        "url('https://images.unsplash.com/photo-1500530855697-b586d89ba3ee')",
-        "url('https://images.unsplash.com/photo-1500048993959-dc65b0c31f52')"
-    ];
-
-    const bg1 = document.getElementById("bg1");
-    const bg2 = document.getElementById("bg2");
-
-    let currentIndex = 0;
-    bg1.style.backgroundImage = backgrounds[0];
-
-    function changeBackground(index) {
-        if (index === currentIndex) return;
-
-        bg2.style.backgroundImage = backgrounds[index];
-        bg2.style.opacity = 1;
-
-        setTimeout(() => {
-            bg1.style.backgroundImage = backgrounds[index];
-            bg2.style.opacity = 0;
-            currentIndex = index;
-        }, 1200);
-    }
-
-    const sections = document.querySelectorAll("section");
-
-    window.addEventListener("scroll", () => {
-        let index = 0;
-
-        sections.forEach((sec, i) => {
-            const rect = sec.getBoundingClientRect();
-            if (rect.top <= window.innerHeight * 0.4) {
-                index = i;
-            }
-        });
-
-        changeBackground(index);
-    });
-</script>
 
 </body>
 </html>
