@@ -295,15 +295,40 @@
     font-weight: bold;
 }
 
+.timeline-block {
+    position: relative;
+    padding-left: 70px; /* 時刻の幅と合わせる */
+    margin: 10px 0;
+}
+
+.timeline-block .time {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 70px;
+    font-weight: bold;
+}
+
+/* 縦線：デフォルト（説明だけの行など） */
 .timeline-block .line {
     position: absolute;
-    left: 35px; /* ← 時刻70pxの中央 */
+    left: 35px; /* 時刻70pxの中央 */
     top: 0;
     bottom: 0;
     width: 2px;
     background: #ccc;
-    transform: translateX(-1px);
 }
+
+/* 時刻がある行では、文字の下から線を伸ばす */
+.timeline-block.has-time .line {
+    top: 1.4em;   /* 時刻テキストの下あたりから */
+}
+
+/* 一番最後の行は、下に伸ばしすぎないように */
+.timeline-block.last .line {
+    bottom: 0.4em;
+}
+
 
 .timeline-block .desc {
     margin-left: 10px;
@@ -434,13 +459,13 @@ window.addEventListener("scroll", () => {
                 <span class="desc">酒 ピックアップ</span>
             </div>
 
- <div class="timeline-block">
+ <div class="timeline-block has-time">
     <span class="time">11:00</span>
     <span class="line"></span>
     <span class="desc">ただのドライブ</span>
 </div>
 
-<div class="timeline-block">
+<div class="timeline-block has-time">
     <span class="time">13:00</span>
     <span class="line"></span>
     <span class="desc">勝沼 到着</span>
@@ -452,7 +477,7 @@ window.addEventListener("scroll", () => {
     <span class="desc">森井ワイナリーツアー（ここで昼飯想定）</span>
 </div>
 
-<div class="timeline-block">
+<div class="timeline-block has-time">
     <span class="time">14:00</span>
     <span class="line"></span>
     <span class="desc">山梨のどこか 出発</span>
@@ -464,11 +489,12 @@ window.addEventListener("scroll", () => {
     <span class="desc">宿へのわくわくドライブ</span>
 </div>
 
-<div class="timeline-block">
+<div class="timeline-block has-time last">
     <span class="time">15:30</span>
     <span class="line"></span>
     <span class="desc">西山温泉 慶運館 到着</span>
 </div>
+
 
         </div>
 
